@@ -1,6 +1,8 @@
 package controlador;
 
-public class GestorCaballerosMesaCuadrada {
+import modelo.Conector;
+
+public class GestorCaballerosMesaCuadrada extends Conector{
 
 	public static void run() {
 		
