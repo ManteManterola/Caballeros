@@ -50,6 +50,7 @@ public class Arma extends Conector {
 			System.out.println("Error insertarArma");
 			e.printStackTrace();
 		}
+
 	}
 
 }
