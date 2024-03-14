@@ -34,7 +34,7 @@ public class Arma {
 
 	@Override
 	public String toString() {
-		return id + " Daño:" + daño + " Tipo:" + tipo;
+		return this.tipo + " Daño: "+this.daño;
 	}
 
 }

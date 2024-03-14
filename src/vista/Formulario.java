@@ -17,9 +17,21 @@ public class Formulario {
 		
 		return a;
 	}
+	
 	public static String pedirNombre() {
 		System.out.println("Inserte el tipo");
 		return scan.nextLine();
+	}
+	
+	public static Escudo pedirDatosEscudo() {
+		Escudo es = new Escudo();
+	
+		es.setTipo(pedirNombre());
+		
+		System.out.println("Inserte la defensa del escudo");
+		es.setDefensa(Integer.parseInt(scan.nextLine()));
+		
+		return es;
 	}
 }
 
