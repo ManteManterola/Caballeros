@@ -35,5 +35,5 @@ public class GestorArma {
 			default:
 			}
 		}while(select!=0);
-		}
+	}
 }

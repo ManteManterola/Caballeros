@@ -34,5 +34,9 @@ public class Arma {
 	public String toString() {
 		return "Arma [id=" + id + ", daño=" + daño + ", tipo=" + tipo + "]";
 	}
+	
+	public void insertarArma(Arma a) {
+		
+	}
 
 }
