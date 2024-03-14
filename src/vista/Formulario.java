@@ -9,14 +9,17 @@ public class Formulario {
 	
 	public static Arma pedirDatosArma() {
 		Arma a = new Arma();
-		
-		System.out.println("Inserte el nombre del arma");
-		a.setTipo(scan.nextLine());
+	
+		a.setTipo(pedirNombre());
 		
 		System.out.println("Inserte el daño del arma");
 		a.setDaño(Integer.parseInt(scan.nextLine()));
 		
 		return a;
+	}
+	public static String pedirNombre() {
+		System.out.println("Inserte el tipo");
+		return scan.nextLine();
 	}
 }
 
