@@ -3,8 +3,15 @@ package modelo;
 import java.sql.*;
 import java.util.*;
 
+/**
+ * Conexion a la base de datos para la clase Arma
+ */
 public class ArmaModelo extends Conector  {
 
+	/**
+	 * Inserta el arma en la BD
+	 * @param a Arma a insertar
+	 */
 	public void insertarArma(Arma a) {
 		String sql = "INSERT INTO arma (daño,tipo) VALUES (?,?)";
 		try {
@@ -20,17 +27,21 @@ public class ArmaModelo extends Conector  {
 		}
 		
 	}
+	
+	
+	/**
+	 * @return ArrayList de todas las armas de la tabla Arma
+	 */
 	public ArrayList<Arma> getArmas() {
 		String sql ="SELECT * FROM arma";
 		ArrayList<Arma> armas = new ArrayList<>();
+
 		try {
 			ResultSet rs = con.createStatement().executeQuery(sql);
 			while (rs.next()) {
 				Arma a = new Arma();
 				
-				a.setId(rs.getInt("id"));
-				a.setDaño(rs.getInt("daño"));
-				a.setTipo(rs.getString("tipo"));
+				rellenarArma(a, rs);
 				
 				armas.add(a);
 			}
@@ -40,8 +51,44 @@ public class ArmaModelo extends Conector  {
 		}
 		return armas;
 	}
+	/**
+	 * Busca un arma por su tipo
+	 * @param tipo Tipo del arma
+	 * @return Arma de la BD con el mismo tipo que el insertado por el user
+	 */
+	public Arma getArma(String tipo) {
+		String sql ="SELECT * FROM arma WHERE tipo=?";
+		Arma a = new Arma();
+
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setString(1, tipo);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			
+			rellenarArma(a, rs);
+			
+		} catch (SQLException e) {
+			System.out.println("Error VisualizarArma");
+			e.printStackTrace();
+		}
+		return a;
+	}
+	
+	private void rellenarArma(Arma a, ResultSet rs) throws SQLException {
+		a.setId(rs.getInt("id"));
+		a.setDaño(rs.getInt("daño"));
+		a.setTipo(rs.getString("tipo"));
+	}
+	
+	/**
+	 * Modifica un arma en la BD
+	 * @param a los nuevos datos del arma
+	 * @param id el ID del arma a modificar
+	 */
 	public void modificarArma(Arma a,int id) {
-		String sql = "UPDATE armas SET daño=?, tipo=? WHERE id=?";
+		String sql = "UPDATE arma SET daño=?, tipo=? WHERE id=?";
 		
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
@@ -58,6 +105,10 @@ public class ArmaModelo extends Conector  {
 			
 		}
 	}
+	/**
+	 * Borra un arma especifica de la BD
+	 * @param a datos del Arma a borrar
+	 */
 	public void borrarArma(Arma a) {
 		String sql = "DELETE FROM arma WHERE id=?";
 		try {
