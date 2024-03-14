@@ -36,7 +36,6 @@ public class Arma extends Conector {
 	public String toString() {
 		return id + " Daño:" + daño + " Tipo:" + tipo;
 	}
-	
 	public void insertarArma() {
 		String sql = "INSERT INTO arma (daño,tipo) VALUES (?,?)";
 		try {
