@@ -36,6 +36,5 @@ public class Arma {
 	public String toString() {
 		return id + " Daño:" + daño + " Tipo:" + tipo;
 	}
-	
 
 }
