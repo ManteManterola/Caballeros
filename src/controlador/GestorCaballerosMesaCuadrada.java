@@ -3,6 +3,7 @@ package controlador;
 import java.util.*;
 
 import modelo.Conector;
+import vista.Menu;
 
 public class GestorCaballerosMesaCuadrada extends Conector{
 
@@ -10,74 +11,91 @@ public class GestorCaballerosMesaCuadrada extends Conector{
 	
 	public static void run() {
 		
-		int select;
+		int opcion;
 		do {
-//			System.out.println("--Menu--");
-//			System.out.println("1-Admin");
-//			System.out.println("2-User");
-//			System.out.println("0-");
-			select=Integer.parseInt(scan.nextLine());
-			switch(select){
+			Menu.mostrarMenuPrincipal();
+			opcion=Integer.parseInt(scan.nextLine());
+			switch(opcion){
 			
-			case 1://Admin
+			case Menu.SALIR:
+				break;
+			
+			case Menu.ADMIN://Admin
 				gestorAdmin();
 				break;
 			
-			case 2://User
+			case Menu.USUARIO://User
 				gestorUser();
 				break;
-			case 0://Salir
+		
+				
+			default:
+				System.out.println("Opcion no valida");
+				break;
+			}
+		}while (opcion!=0);
+	}
+
+	private static void gestorAdmin() {
+		int opcion;
+		do {
+			//Menu
+			Menu.mostrarMenuAdmin();
+			opcion=Integer.parseInt(scan.nextLine());
+			switch(opcion) {
+			
+			case Menu.SALIR:
+				break;
+				
+			case Menu.GESTIONAR_ARMAS:
+				GestorArma.run();
+				break;
+				
+			case Menu.GESTIONAR_CABALLEROS:
+				GestorCaballero.run();
+				break;
+				
+			case Menu.GESTIONAR_CABALLOS:
+				GestorCaballo.run();
+				break;
+				
+			case Menu.GESTIONAR_ESCUDEROS:
+				GestorEscudero.run();
+				break;
+				
+			case Menu.GESTIONAR_ESCUDOS:
+				GestorEscudo.run();
+				break;
+				
+			case Menu.LUCHAR_ADMIN:
+				GestorLucha.run();
 				break;
 				
 			default:
 				System.out.println("Opcion no valida");
 				break;
 			}
-		}while (select!=0);
-	}
-
-	private static void gestorAdmin() {
-		int select;
-		do {
-			//Menu
-			select=Integer.parseInt(scan.nextLine());
-			switch(select) {
-			case 1://Caballero
-				GestorCaballero.run();;
-				break;
-			case 2://Escudero
-				GestorEscudero.run();
-				break;
-			case 3://Arma
-				GestorArma.run();
-				break;
-			case 4://Escudo
-				GestorEscudo.run();
-				break;
-			case 5://Lucha
-				GestorLucha.run();
-				break;
-			case 0://salir
-				break;
-			default:
-				break;
-			}
-		}while(select!=0);
+		}while(opcion!=0);
 	}
 	private static void gestorUser() {
-		int select;
+		int opcion;
 		do {
 			//Menu
-			select=Integer.parseInt(scan.nextLine());
-			switch(select) {
-			case 1://Lucha
+			Menu.mostrarMenuUsuario();
+			opcion=Integer.parseInt(scan.nextLine());
+			switch(opcion) {
+			
+			case Menu.SALIR:
+				break;
+				
+			case Menu.LUCHAR_USUARIO:
 				GestorLucha.run();
 				break;
-			case 0://Salir
-				break;
+				
 			default:
+				System.out.println("Opcion no valida");
 				break;
 			}
-		}while(select!=0);
+		}while(opcion!=0);
 	}
 }
