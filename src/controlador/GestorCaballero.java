@@ -23,6 +23,7 @@ public class GestorCaballero {
 				
 			case Menu.VISUALIZAR_CABALLEROS:
 				cm.Conectar();
+				
 				Visor.mostrarArray(cm.getCaballeros());
 				cm.cerrar();
 				

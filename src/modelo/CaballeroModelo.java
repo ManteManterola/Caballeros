@@ -7,10 +7,12 @@ import java.util.ArrayList;
 public class CaballeroModelo extends Conector{
 
 	public ArrayList<Caballero> getCaballeros() {
+		ArmaModelo armaModelo = new ArmaModelo();
 		String sentenciaSelect = "SELECT * FROM caballero";
 		ArrayList<Caballero> caballeros = new ArrayList<Caballero>();
 		
 		try {
+			armaModelo.Conectar();
 			ResultSet rs = getCon().createStatement().executeQuery(sentenciaSelect);
 			
 			while (rs.next()) {
@@ -19,6 +21,8 @@ public class CaballeroModelo extends Conector{
 				caballero.setNombre(rs.getString("nombre"));
 				caballero.setFuerza(rs.getInt("fuerza"));
 				caballero.setNivel(rs.getInt("nivel"));
+				caballero.setArma(armaModelo.getArmaConId(rs.getInt("id_arma")));
+				
 				
 				
 				caballeros.add(caballero);
