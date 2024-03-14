@@ -2,11 +2,13 @@ package controlador;
 
 import java.util.Scanner;
 
-import vista.Menu;
+import modelo.*;
+import vista.*;
 
 public class GestorArma {
 	
 	private static Scanner scan = new Scanner(System.in);
+	private static ArmaModelo am = new ArmaModelo();
 	public static void run() {
 		
 		int select;
@@ -16,7 +18,7 @@ public class GestorArma {
 			switch(select) {
 			
 			case Menu.VISUALIZAR_ARMAS:
-				//visualizarArma()
+				Visor.mostrarArray(am.getArmas());
 				break;
 				
 			case Menu.INSERTAR_ARMAS:
