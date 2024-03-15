@@ -121,4 +121,24 @@ public class ArmaModelo extends Conector  {
 			e.printStackTrace();
 		}
 	}
+	
+	public Arma getArmaConId(int id) {
+		String sql ="SELECT * FROM arma WHERE id=?";
+		Arma arma = new Arma();
+
+		try {
+			PreparedStatement pst = getCon().prepareStatement(sql);
+			pst.setInt(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			
+			rellenarArma(arma, rs);
+			
+		} catch (SQLException e) {
+			System.out.println("Error VisualizarArma");
+			e.printStackTrace();
+		}
+		return arma;
+	}
 }

@@ -116,4 +116,25 @@ public class EscudoModelo extends Conector{
 			e.printStackTrace();
 		}
 	}
+
+
+	public Escudo getEscudoConId(int id) {
+		String sql ="SELECT * FROM escudo WHERE id=?";
+		Escudo escudo = new Escudo();
+
+		try {
+			PreparedStatement pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+			
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			
+			rellenarEscudo(escudo, rs);
+			
+		} catch (SQLException e) {
+			System.out.println("Error getEscudoConId");
+			e.printStackTrace();
+		}
+		return escudo;
+	}
 }
