@@ -32,7 +32,7 @@ public class Escudo {
 
 	@Override
 	public String toString() {
-		return this.tipo + " Defensa: "+this.defensa;
+		return "ID:" + this.id + " Nombre:" + this.tipo + " Defensa:" + this.defensa;
 	}
 
 }

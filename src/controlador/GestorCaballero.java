@@ -2,12 +2,13 @@ package controlador;
 
 import java.util.Scanner;
 
+import modelo.Caballero;
 import modelo.CaballeroModelo;
 import vista.*;
 
 public class GestorCaballero {
 	private static Scanner scan = new Scanner(System.in);
-	private static CaballeroModelo cm = new CaballeroModelo();
+	private static CaballeroModelo caballeroModelo = new CaballeroModelo();
 	
 	public static void run() {
 	
@@ -21,13 +22,48 @@ public class GestorCaballero {
 			case Menu.SALIR:
 				break;
 				
-			case Menu.VISUALIZAR_CABALLEROS:
-				cm.Conectar();
+			case Menu.VISUALIZAR_CABALLEROS: {
+				caballeroModelo.Conectar();
 				
-				Visor.mostrarArray(cm.getCaballeros());
-				cm.cerrar();
+				Visor.mostrarArray(caballeroModelo.getCaballeros());
+				caballeroModelo.cerrar();
+				break;
+			}
 				
-
+			case Menu.INSERTAR_CABALLEROS: {
+				caballeroModelo.Conectar();
+				
+				Caballero caballero = Formulario.pedirDatosCaballero();
+				caballeroModelo.insertarCaballero(caballero);
+				
+				caballeroModelo.cerrar();
+				break;
+			}
+				
+			case Menu.BORRAR_CABALLEROS: {
+				caballeroModelo.Conectar();
+				
+				int id = Formulario.pedirIdCaballero();
+				caballeroModelo.borrarCaballero(id);
+				
+				caballeroModelo.cerrar();
+				break;
+			}
+				
+			case Menu.MODIFICAR_CABALLEROS: {
+				caballeroModelo.Conectar();
+				
+				Visor.mostrarArray(caballeroModelo.getCaballeros());
+				int id = Formulario.pedirId();
+				Caballero caballero = Formulario.pedirDatosCaballero();
+				caballeroModelo.modificarCaballero(caballero, id);
+				
+				caballeroModelo.cerrar();
+				break;
+			}
+				
+				
+				
 			default:
 				break;
 			}
