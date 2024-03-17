@@ -50,7 +50,7 @@ public class Menu {
 	
 	//Constante luchar
 	public static final int LUCHAR_ADMIN = 6;
-	public static final int LUCHAR_USUARIO = 7;
+	public static final int LUCHAR_USUARIO = 1;
 	
 	public static void mostrarMenuPrincipal() {
 		System.out.println("----Menu Principal----");
