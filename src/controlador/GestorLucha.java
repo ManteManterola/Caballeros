@@ -21,7 +21,7 @@ public class GestorLucha {
 			lucha.setCaballero2(cm.getCaballero((int)Math.floor(Math.random()*cm.getCaballeros().size()+1)));
 			
 		}while(lucha.getCaballero1().getId()==lucha.getCaballero2().getId());
-		
+		Visor.lucha(lucha);
 		int statsCaballeroUsuario = rellenarStats(lucha.getCaballero1(),lucha.getCaballero2());
 		int statsCaballeroIA = rellenarStats(lucha.getCaballero2(),lucha.getCaballero1());
 		
@@ -30,7 +30,7 @@ public class GestorLucha {
 		}else if(statsCaballeroUsuario>statsCaballeroIA){
 			lucha.setGanador(lucha.getCaballero2());
 		}
-		
+		Visor.ganador(lucha);
 		
 	}
 	private static int rellenarStats(Caballero c, Caballero rival) {

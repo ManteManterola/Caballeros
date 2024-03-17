@@ -19,7 +19,7 @@ public class Formulario {
 	}
 	
 	public static String pedirNombre() {
-		System.out.println("Inserte el tipo");
+		System.out.println("Inserte el nombre");
 		return scan.nextLine();
 	}
 	

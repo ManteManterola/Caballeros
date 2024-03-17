@@ -16,18 +16,14 @@ public class CaballeroModelo extends Conector{
 		ArrayList<Caballero> caballeros = new ArrayList<Caballero>();
 		
 		try {
+			Conectar();
 			armaModelo.Conectar();
 			escudoModelo.Conectar();
 			ResultSet rs = getCon().createStatement().executeQuery(sentenciaSelect);
 			
 			while (rs.next()) {
 				Caballero caballero = new Caballero();
-				caballero.setId(rs.getInt("id"));
-				caballero.setNombre(rs.getString("nombre"));
-				caballero.setFuerza(rs.getInt("fuerza"));
-				caballero.setNivel(rs.getInt("nivel"));
-				caballero.setArma(armaModelo.getArmaConId(rs.getInt("id_arma")));
-				caballero.setEscudo(escudoModelo.getEscudoConId(rs.getInt("id_escudo")));
+				rellenarCaballero(caballero, rs);
 				
 				caballeros.add(caballero);
 				
@@ -39,6 +35,64 @@ public class CaballeroModelo extends Conector{
 		return caballeros;
 		
 	}
+	public Caballero getCaballero(String nombre) {
+		
+		String sentenciaSelect = "SELECT * FROM caballero WHERE nombre =?";
+		Caballero caballero = new Caballero();
+		
+		try {
+			armaModelo.Conectar();
+			escudoModelo.Conectar();
+			PreparedStatement pst = con.prepareStatement(sentenciaSelect);
+			pst.setString(1, nombre);
+			ResultSet rs = pst.executeQuery();
+			
+			rs.next();
+				
+				rellenarCaballero(caballero, rs);
+				
+				
+				
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return caballero;
+	}
+public Caballero getCaballero(int id) {
+		
+		String sentenciaSelect = "SELECT * FROM caballero WHERE ID =?";
+		Caballero caballero = new Caballero();
+		
+		try {
+			armaModelo.Conectar();
+			escudoModelo.Conectar();
+			PreparedStatement pst = con.prepareStatement(sentenciaSelect);
+			pst.setInt(1, id);
+			ResultSet rs = pst.executeQuery();
+			
+			rs.next();
+				
+				rellenarCaballero(caballero, rs);
+				
+				
+				
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return caballero;
+}
+private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLException {
+	caballero.setId(rs.getInt("id"));
+	caballero.setNombre(rs.getString("nombre"));
+	caballero.setFuerza(rs.getInt("fuerza"));
+	caballero.setNivel(rs.getInt("nivel"));
+	caballero.setArma(armaModelo.getArmaConId(rs.getInt("id_arma")));
+	caballero.setEscudo(escudoModelo.getEscudoConId(rs.getInt("id_escudo")));
+}
 	
 	//Metodo para insertar un caballero, el caballero viene de Formulario.pedirDatosCaballero
 	public void insertarCaballero(Caballero caballero) {
