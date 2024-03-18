@@ -17,7 +17,8 @@ public class Menu {
 	public static final int GESTIONAR_CABALLOS = 3;
 	public static final int GESTIONAR_ESCUDEROS = 4;
 	public static final int GESTIONAR_ESCUDOS = 5;
-	public static final int GESTIONAR_LUCHAS = 6;
+	public static final int GESTIONAR_LUCHAS_ADMIN = 6;
+	public static final int GESTIONAR_LUCHAS_USUARIO = 1;
 
 	// Constantes del gestor armas
 	public static final int VISUALIZAR_ARMAS = 1;
@@ -68,13 +69,13 @@ public class Menu {
 		System.out.println(GESTIONAR_CABALLOS + ". Gestionar caballos");
 		System.out.println(GESTIONAR_ESCUDEROS + ". Gestionar escuderos");
 		System.out.println(GESTIONAR_ESCUDOS + ". Gestionar escudos");
-		System.out.println(GESTIONAR_LUCHAS + ". Menu luchas");
+		System.out.println(GESTIONAR_LUCHAS_ADMIN + ". Menu luchas");
 	}
 	
 	public static void mostrarMenuUsuario() {
 		System.out.println("----Menu Usuario----");
 		System.out.println(SALIR + ". Salir");
-		System.out.println(GESTIONAR_LUCHAS + ". Luchar");
+		System.out.println(GESTIONAR_LUCHAS_USUARIO + ". Menu luchar");
 	}
 	
 	public static void mostrarMenuArmas() {
@@ -125,7 +126,7 @@ public class Menu {
 	public static void mostrarMenuLuchas() {
 		System.out.println("----Menu Luchas----");
 		System.out.println(SALIR + ". Salir");
-		System.out.println(LUCHAR + ". Insertar un escudo");
-		System.out.println(VISUALIZAR_LUCHAS + ". Visualizar todos los escudos");
+		System.out.println(LUCHAR + ". Luchar");
+		System.out.println(VISUALIZAR_LUCHAS + ". Visualizar todas las luchas");
 	}
 }

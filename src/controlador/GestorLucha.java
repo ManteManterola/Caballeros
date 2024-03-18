@@ -9,6 +9,7 @@ public class GestorLucha {
 	private static Scanner scan = new Scanner(System.in);
 	private static CaballeroModelo cm = new CaballeroModelo();
 	private static Lucha lucha = new Lucha();
+	private static LuchaModelo luchaModelo = new LuchaModelo();
 	
 	public static void run() {
 		int opcion;
@@ -22,6 +23,12 @@ public class GestorLucha {
 
 			case Menu.LUCHAR:
 				luchar();
+				break;
+				
+			case Menu.VISUALIZAR_LUCHAS:
+				Visor.mostrarArray(luchaModelo.getLuchas());
+				break;
+				
 			default:
 				System.out.println("Opcion no valida");
 				break;
@@ -50,6 +57,10 @@ public class GestorLucha {
 			lucha.setGanador(lucha.getCaballero2());
 		}
 		Visor.ganador(lucha);
+		LuchaModelo luchaModelo = new LuchaModelo();
+		luchaModelo.Conectar();
+		luchaModelo.insertarlucha(lucha);
+		
 	}
 	private static int rellenarStats(Caballero c, Caballero rival) {
 		return c.getFuerza() + c.getNivel() + c.getArma().getDaño() - rival.getEscudo().getDefensa();

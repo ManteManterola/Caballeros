@@ -67,7 +67,7 @@ public class GestorCaballerosMesaCuadrada extends Conector{
 				GestorEscudo.run();
 				break;
 				
-			case Menu.LUCHAR_ADMIN:
+			case Menu.GESTIONAR_LUCHAS_ADMIN:
 				GestorLucha.run();
 				break;
 				
@@ -88,7 +88,7 @@ public class GestorCaballerosMesaCuadrada extends Conector{
 			case Menu.SALIR:
 				break;
 				
-			case Menu.LUCHAR_USUARIO:
+			case Menu.GESTIONAR_LUCHAS_USUARIO:
 				GestorLucha.run();
 				break;
 				

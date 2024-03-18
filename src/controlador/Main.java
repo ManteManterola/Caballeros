@@ -1,6 +1,4 @@
-package modelo;
-
-import controlador.GestorCaballerosMesaCuadrada;
+package controlador;
 
 public class Main {
 
