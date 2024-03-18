@@ -11,7 +11,26 @@ public class GestorLucha {
 	private static Lucha lucha = new Lucha();
 	
 	public static void run() {
+		int opcion;
+		do {
+			Menu.mostrarMenuLuchas();
+			opcion = Integer.parseInt(scan.nextLine());
 			
+			switch (opcion) {
+			case Menu.SALIR:		
+				break;
+
+			case Menu.LUCHAR:
+				luchar();
+			default:
+				System.out.println("Opcion no valida");
+				break;
+			}
+		} while (opcion != Menu.SALIR);
+		
+		
+	}
+	private static void luchar() {
 		//El visor da la bienvenida al User y mediante una funcion del formulario devuelve un caballero
 		lucha.setCaballero1(Visor.bienvenidaLucha());
 		
@@ -31,7 +50,6 @@ public class GestorLucha {
 			lucha.setGanador(lucha.getCaballero2());
 		}
 		Visor.ganador(lucha);
-		
 	}
 	private static int rellenarStats(Caballero c, Caballero rival) {
 		return c.getFuerza() + c.getNivel() + c.getArma().getDaño() - rival.getEscudo().getDefensa();
