@@ -13,7 +13,7 @@ public class Visor {
 		System.out.println(item+"\n");
 	}
 	
-	public static Caballero bienvenidaLucha() {
+	public static Caballero bienvenidaLucha(ArrayList<Caballero> caballeros) {
 		CaballeroModelo cm = new CaballeroModelo();
 		ArmaModelo am = new ArmaModelo();
 		EscudoModelo em = new EscudoModelo();
@@ -24,7 +24,7 @@ public class Visor {
 		
 		System.out.println("Bienvenid@ a la lucha, por favor inserte el nombre de un caballero");
 		
-		mostrarArray(cm.getCaballeros());
+		mostrarArray(caballeros);
 		Caballero c = cm.getCaballero(Formulario.pedirNombre());
 		
 		System.out.println("Selecciona un arma");
@@ -50,6 +50,8 @@ public class Visor {
 	public static void ganador(Lucha l) {
 		if(l.getGanador() != null){
 			System.out.println("El ganador es:" + l.getGanador().getNombre());
+		}else {
+			System.out.println("Empate");
 		}
 	}
 }
