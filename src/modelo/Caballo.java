@@ -2,17 +2,17 @@ package modelo;
 
 public class Caballo {
 
-	private int id;
 	private String nombre;
 	private int velocidadMaxima;
 	private int resistencia;
+	private Caballero caballero;
 
-	public int getId() {
-		return id;
+	public Caballero getCaballero() {
+		return caballero;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCaballero(Caballero caballero) {
+		this.caballero = caballero;
 	}
 
 	public String getNombre() {
@@ -41,8 +41,7 @@ public class Caballo {
 
 	@Override
 	public String toString() {
-		return "Caballo [id=" + id + ", nombre=" + nombre + ", velocidadMaxima=" + velocidadMaxima + ", resistencia="
-				+ resistencia + "]";
+		return this.nombre + " pertenece a " + caballero.getNombre();
 	}
 
 }
