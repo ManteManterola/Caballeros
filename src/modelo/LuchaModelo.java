@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class LuchaModelo extends Conector{
 
 	private static CaballeroModelo caballeroModelo = new CaballeroModelo();
+	
+	
 	public ArrayList<Lucha> getLuchas() {
 		String sentenciaSelect = "SELECT * FROM lucha";
 		ArrayList<Lucha> luchas = new ArrayList<Lucha>();
@@ -19,6 +21,7 @@ public class LuchaModelo extends Conector{
 			
 			while (resultado.next()) {
 				Lucha lucha = new Lucha();
+				
 				lucha.setId(resultado.getInt("id"));
 				lucha.setFecha(resultado.getDate("fecha"));
 				lucha.setLugar(resultado.getString("lugar"));

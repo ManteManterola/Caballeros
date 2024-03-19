@@ -65,6 +65,25 @@ public class Formulario {
 		
 	}
 	
+	//Metodo en el que se rellena un escudero por teclado y se devuelve el mismo
+	public static Escudero pedirDatosEscudero() {
+		CaballeroModelo caballeroModelo = new CaballeroModelo();
+		Escudero escudero = new Escudero();
+		
+		System.out.println("Inserta la id de su caballero");
+		Visor.mostrarArray(caballeroModelo.getCaballeros());
+		escudero.setCaballero(caballeroModelo.getCaballero(Integer.parseInt(scan.nextLine())));
+		
+		System.out.println("Introduce el nombre del escudero");
+		escudero.setNombre(scan.nextLine());
+		
+		System.out.println("Introduce el nivel del escudero");
+		escudero.setNivel(Integer.parseInt(scan.nextLine()));
+		
+		return escudero;
+	}
+	
+	
 	public static int pedirIdCaballero() {
 		int id;
 		CaballeroModelo caballeroModelo = new CaballeroModelo();
@@ -77,10 +96,34 @@ public class Formulario {
 		return id;
 	}
 	
+	public static int pedirIdEscudero() {
+		int id;
+		EscuderoModelo escuderoModelo = new EscuderoModelo();
+		
+		escuderoModelo.Conectar();
+		Visor.mostrarArray(escuderoModelo.getEscuderos()); 
+		System.out.println("Inserta el id del caballero asignado al escudero");
+		id = Integer.parseInt(scan.nextLine());
+		
+		return id;
+	}
+	
 	public static int pedirId() {
 		System.out.println("Que caballero deseas modificar? Introduce el id");
 		int id = Integer.parseInt(scan.nextLine());
 		return id;
+	}
+	
+	public static Escudero pedirDatosEscuderoSinId() {
+		Escudero escudero = new Escudero();
+		
+		System.out.println("Introduce el nombre del escudero");
+		escudero.setNombre(scan.nextLine());
+		
+		System.out.println("Introduce el nivel del escudero");
+		escudero.setNivel(Integer.parseInt(scan.nextLine()));
+		
+		return escudero;
 	}
 }
 
