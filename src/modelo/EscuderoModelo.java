@@ -4,15 +4,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 
 public class EscuderoModelo extends Conector {
-
+	Scanner scan = new Scanner(System.in);
 	private static CaballeroModelo caballeroModelo = new CaballeroModelo();
 
 	// Llena una ArrayList escuderos con los datos de la base
 	public ArrayList<Escudero> getEscuderos() {
 		String sentenciaSelect = "SELECT * FROM escudero";
 		ArrayList<Escudero> escuderos = new ArrayList<Escudero>();
+		
 
 		try {
 			Conectar();
@@ -89,5 +92,37 @@ public class EscuderoModelo extends Conector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void generarEscudero(Caballero ganador) {
+		
+		Random random = new Random();
+		//int numeroAleatorio = random.nextInt(5) + 1;
+		int numeroAleatorio = 1;
+		if(ganador.getEscudero() == null && numeroAleatorio == 1) {
+			System.out.println("Un nuevo escudero quiere unirse a " + ganador.getNombre() + "!!!");
+			Escudero escudero = new Escudero();
+			
+			escudero.setCaballero(ganador);
+			System.out.println("Introduce el nombre del nuevo escudero");
+			escudero.setNombre(scan.nextLine());
+			escudero.setNivel(1);
+			
+			String sentenciaInsert = "INSERT INTO escudero (id_caballero, nombre, nivel) VALUES(?, ?, ?)";
+			
+			try {
+				Conectar();
+				PreparedStatement pst = con.prepareStatement(sentenciaInsert);
+				
+				pst.setInt(1, ganador.getId());
+				pst.setString(2, escudero.getNombre());
+				pst.setInt(3, escudero.getNivel());
+
+				pst.execute();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

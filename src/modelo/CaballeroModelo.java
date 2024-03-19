@@ -28,6 +28,8 @@ public class CaballeroModelo extends Conector{
 				caballeros.add(caballero);
 				
 			}
+			armaModelo.cerrar();
+			escudoModelo.cerrar();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -53,7 +55,8 @@ public class CaballeroModelo extends Conector{
 				
 				
 				
-			
+				armaModelo.cerrar();
+				escudoModelo.cerrar();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +81,8 @@ public Caballero getCaballero(int id) {
 				
 				
 				
-			
+				armaModelo.cerrar();
+				escudoModelo.cerrar();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,6 +114,8 @@ private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLExce
 			pst.setInt(5, caballero.getEscudo().getId());
 			
 			pst.execute();
+			armaModelo.cerrar();
+			escudoModelo.cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error insertarCaballero");
 			e.printStackTrace();
@@ -149,6 +155,8 @@ private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLExce
 			pst.setInt(6, id);
 			
 			pst.execute();
+			armaModelo.cerrar();
+			escudoModelo.cerrar();
 			
 		} catch (SQLException e) {
 			System.out.println("Error modificarCaballero");
