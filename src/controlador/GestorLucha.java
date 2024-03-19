@@ -1,6 +1,6 @@
 package controlador;
 
-import java.util.Scanner;
+import java.util.*;
 
 import modelo.*;
 import vista.*;
@@ -10,6 +10,7 @@ public class GestorLucha {
 	private static CaballeroModelo cm = new CaballeroModelo();
 	private static Lucha lucha = new Lucha();
 	private static LuchaModelo luchaModelo = new LuchaModelo();
+	private static ArmaModelo am = new ArmaModelo();
 	
 	public static void run() {
 		int opcion;
@@ -22,7 +23,9 @@ public class GestorLucha {
 				break;
 
 			case Menu.LUCHAR:
+				am.Conectar();
 				luchar();
+				am.cerrar();
 				break;
 				
 			case Menu.VISUALIZAR_LUCHAS:
@@ -38,29 +41,48 @@ public class GestorLucha {
 		
 	}
 	private static void luchar() {
+		EscuderoModelo escuderoModelo = new EscuderoModelo();
+		ArrayList<Caballero> caballeros = cm.getCaballeros();
+		Random r = new Random();
 		//El visor da la bienvenida al User y mediante una funcion del formulario devuelve un caballero
-		lucha.setCaballero1(Visor.bienvenidaLucha());
+		lucha.setCaballero1(Visor.bienvenidaLucha(caballeros));
+		
 		
 		//Si el caballeroIA es el mismo que el del usuario seguira en el bucle
 		do {
 			
-			lucha.setCaballero2(cm.getCaballero((int)Math.floor(Math.random()*cm.getCaballeros().size()+1)));
+			lucha.setCaballero2(cm.getCaballero(r.nextInt(caballeros.size())));
 			
 		}while(lucha.getCaballero1().getId()==lucha.getCaballero2().getId());
 		Visor.lucha(lucha);
+		
 		int statsCaballeroUsuario = rellenarStats(lucha.getCaballero1(),lucha.getCaballero2());
 		int statsCaballeroIA = rellenarStats(lucha.getCaballero2(),lucha.getCaballero1());
 		
 		if(statsCaballeroUsuario>statsCaballeroIA) {
 			lucha.setGanador(lucha.getCaballero1());
+			//funcion(ucha)
 		}else if(statsCaballeroUsuario>statsCaballeroIA){
 			lucha.setGanador(lucha.getCaballero2());
 		}
+		
+		
 		Visor.ganador(lucha);
-		GestorBBDD gestor = new GestorBBDD();
-		gestor.Conectar();
-		gestor.insertarlucha(lucha);
-		gestor.cerrar();
+
+		
+		escuderoModelo.generarEscudero(lucha.getGanador());
+		LuchaModelo luchaModelo = new LuchaModelo();
+		luchaModelo.Conectar();
+		luchaModelo.insertarlucha(lucha);
+		luchaModelo.cerrar();
+		
+		/*
+		 * l.getganador.setnivel= .getgandor.getnivel+1
+		 * lo mismo con escudero
+		 * caballeroModeo.update(lucha.ganador, lucha.ganador.id)
+		 * escuderomodelo.update(lucha.ganador.escudero,lucha.gandor.id)
+		 */
+
 	}
 	private static int rellenarStats(Caballero c, Caballero rival) {
 		return c.getFuerza() + c.getNivel() + c.getArma().getDaño() - rival.getEscudo().getDefensa();

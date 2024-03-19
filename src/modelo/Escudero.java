@@ -2,16 +2,16 @@ package modelo;
 
 public class Escudero {
 
-	private int id;
+	private Caballero caballero;
 	private String nombre;
 	private int nivel;
 
-	public int getId() {
-		return id;
+	public Caballero getCaballero() {
+		return caballero;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCaballero(Caballero caballero) {
+		this.caballero = caballero;
 	}
 
 	public String getNombre() {
@@ -32,7 +32,7 @@ public class Escudero {
 
 	@Override
 	public String toString() {
-		return "Escudero [id=" + id + ", nombre=" + nombre + ", nivel=" + nivel + "]";
+		return "Escudero [caballero=" + caballero + ", nombre=" + nombre + ", nivel=" + nivel + "]";
 	}
 
 }

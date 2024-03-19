@@ -57,7 +57,7 @@ public class Menu {
 	public static void mostrarMenuPrincipal() {
 		System.out.println("----Menu Principal----");
 		System.out.println(SALIR + ". Salir");
-		System.out.println(ADMIN + ". Entrar como administrados");
+		System.out.println(ADMIN + ". Entrar como administrador");
 		System.out.println(USUARIO + ". Entrar como usuario");
 	}
 	
