@@ -57,10 +57,10 @@ public class GestorLucha {
 			lucha.setGanador(lucha.getCaballero2());
 		}
 		Visor.ganador(lucha);
-		LuchaModelo luchaModelo = new LuchaModelo();
-		luchaModelo.Conectar();
-		luchaModelo.insertarlucha(lucha);
-		
+		GestorBBDD gestor = new GestorBBDD();
+		gestor.Conectar();
+		gestor.insertarlucha(lucha);
+		gestor.cerrar();
 	}
 	private static int rellenarStats(Caballero c, Caballero rival) {
 		return c.getFuerza() + c.getNivel() + c.getArma().getDaño() - rival.getEscudo().getDefensa();
