@@ -91,7 +91,7 @@ public Caballero getCaballero(int id) {
 }
 private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLException {
 	caballero.setId(rs.getInt("id"));
-	caballero.setNombre(rs.getString("nombre"));
+	caballero.setNombre(rs.getString("caballero.nombre"));
 	caballero.setFuerza(rs.getInt("fuerza"));
 	caballero.setNivel(rs.getInt("nivel"));
 	caballero.setArma(armaModelo.getArmaConId(rs.getInt("id_arma")));
@@ -162,5 +162,27 @@ private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLExce
 			System.out.println("Error modificarCaballero");
 			e.printStackTrace();
 		}
+	}
+	public ArrayList<Caballero> getCaballerosDisponibles(){
+		ArrayList<Caballero> caballeros = new ArrayList<>();
+		String sql = "SELECT * FROM caballo RIGHT JOIN caballero ON caballo.id_caballero = caballero.id WHERE id_caballero is NULL";
+		armaModelo.Conectar();
+		escudoModelo.Conectar();
+		try {
+			ResultSet resultado = con.createStatement().executeQuery(sql);
+			
+			while (resultado.next()) {
+				Caballero caballero = new Caballero();
+				
+				rellenarCaballero(caballero, resultado);
+				
+				caballeros.add(caballero);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return caballeros;
 	}
 }

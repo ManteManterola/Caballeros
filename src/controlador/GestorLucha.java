@@ -68,6 +68,7 @@ public class GestorLucha {
 		
 		
 		Visor.ganador(lucha);
+
 		
 		escuderoModelo.generarEscudero(lucha.getGanador());
 		LuchaModelo luchaModelo = new LuchaModelo();
@@ -81,6 +82,7 @@ public class GestorLucha {
 		 * caballeroModeo.update(lucha.ganador, lucha.ganador.id)
 		 * escuderomodelo.update(lucha.ganador.escudero,lucha.gandor.id)
 		 */
+
 	}
 	private static int rellenarStats(Caballero c, Caballero rival) {
 		return c.getFuerza() + c.getNivel() + c.getArma().getDaño() - rival.getEscudo().getDefensa();
