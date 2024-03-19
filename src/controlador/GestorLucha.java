@@ -9,9 +9,35 @@ public class GestorLucha {
 	private static Scanner scan = new Scanner(System.in);
 	private static CaballeroModelo cm = new CaballeroModelo();
 	private static Lucha lucha = new Lucha();
+	private static LuchaModelo luchaModelo = new LuchaModelo();
 	
 	public static void run() {
+		int opcion;
+		do {
+			Menu.mostrarMenuLuchas();
+			opcion = Integer.parseInt(scan.nextLine());
 			
+			switch (opcion) {
+			case Menu.SALIR:		
+				break;
+
+			case Menu.LUCHAR:
+				luchar();
+				break;
+				
+			case Menu.VISUALIZAR_LUCHAS:
+				Visor.mostrarArray(luchaModelo.getLuchas());
+				break;
+				
+			default:
+				System.out.println("Opcion no valida");
+				break;
+			}
+		} while (opcion != Menu.SALIR);
+		
+		
+	}
+	private static void luchar() {
 		//El visor da la bienvenida al User y mediante una funcion del formulario devuelve un caballero
 		lucha.setCaballero1(Visor.bienvenidaLucha());
 		

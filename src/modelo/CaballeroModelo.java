@@ -19,11 +19,11 @@ public class CaballeroModelo extends Conector{
 			Conectar();
 			armaModelo.Conectar();
 			escudoModelo.Conectar();
-			ResultSet rs = getCon().createStatement().executeQuery(sentenciaSelect);
+			ResultSet resultado = getCon().createStatement().executeQuery(sentenciaSelect);
 			
-			while (rs.next()) {
+			while (resultado.next()) {
 				Caballero caballero = new Caballero();
-				rellenarCaballero(caballero, rs);
+				rellenarCaballero(caballero, resultado);
 				
 				caballeros.add(caballero);
 				
