@@ -10,7 +10,7 @@ public class GestorLucha {
 	private static CaballeroModelo cm = new CaballeroModelo();
 	private static Lucha lucha = new Lucha();
 	private static LuchaModelo luchaModelo = new LuchaModelo();
-	private static ArmaModelo am = new ArmaModelo();
+
 	
 	public static void run() {
 		int opcion;
@@ -23,9 +23,9 @@ public class GestorLucha {
 				break;
 
 			case Menu.LUCHAR:
-				am.Conectar();
+				
 				luchar();
-				am.cerrar();
+				
 				break;
 				
 			case Menu.VISUALIZAR_LUCHAS:
@@ -51,7 +51,7 @@ public class GestorLucha {
 		//Si el caballeroIA es el mismo que el del usuario seguira en el bucle
 		do {
 			
-			lucha.setCaballero2(cm.getCaballero(r.nextInt(caballeros.size())));
+			lucha.setCaballero2(cm.getCaballero(r.nextInt(caballeros.size())+1));
 			
 		}while(lucha.getCaballero1().getId()==lucha.getCaballero2().getId());
 		Visor.lucha(lucha);
@@ -76,12 +76,10 @@ public class GestorLucha {
 		luchaModelo.insertarlucha(lucha);
 		luchaModelo.cerrar();
 		
-		/*
-		 * l.getganador.setnivel= .getgandor.getnivel+1
-		 * lo mismo con escudero
-		 * caballeroModeo.update(lucha.ganador, lucha.ganador.id)
-		 * escuderomodelo.update(lucha.ganador.escudero,lucha.gandor.id)
-		 */
+		if(lucha.getGanador().getEscudero() != null && lucha.getGanador().getEscudero().getNivel()>=10) {
+			
+			cm.evolucionarACaballero(lucha.getGanador().getEscudero(),Formulario.pedirDatosBuscaArma() , Formulario.pedirDatosBuscaEscudo());
+		}
 
 	}
 	private static int rellenarStats(Caballero c, Caballero rival) {

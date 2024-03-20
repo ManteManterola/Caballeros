@@ -32,6 +32,7 @@ public class EscudoModelo extends Conector{
 		ArrayList<Escudo> escudos = new ArrayList<>();
 
 		try {
+			Conectar();
 			ResultSet rs = con.createStatement().executeQuery(sql);
 			while (rs.next()) {
 				Escudo es= new Escudo();
@@ -40,6 +41,7 @@ public class EscudoModelo extends Conector{
 				
 				escudos.add(es);
 			}
+			cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error getEscudos");
 			e.printStackTrace();
@@ -56,6 +58,7 @@ public class EscudoModelo extends Conector{
 		Escudo es = new Escudo();
 
 		try {
+			Conectar();
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, tipo);
 			
@@ -63,7 +66,7 @@ public class EscudoModelo extends Conector{
 			rs.next();
 			
 			rellenarEscudo(es, rs);
-			
+			cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error getEscudo");
 			e.printStackTrace();
