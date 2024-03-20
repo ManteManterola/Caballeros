@@ -11,7 +11,7 @@ public class GestorLucha {
 	private static Lucha lucha = new Lucha();
 	private static LuchaModelo luchaModelo = new LuchaModelo();
 	private static ArmaModelo am = new ArmaModelo();
-	
+	private static EscuderoModelo escuderoModelo = new EscuderoModelo();
 	public static void run() {
 		int opcion;
 		do {
@@ -24,8 +24,10 @@ public class GestorLucha {
 
 			case Menu.LUCHAR:
 				am.Conectar();
+				cm.Conectar();
 				luchar();
 				am.cerrar();
+				cm.cerrar();
 				break;
 				
 			case Menu.VISUALIZAR_LUCHAS:
@@ -41,9 +43,10 @@ public class GestorLucha {
 		
 	}
 	private static void luchar() {
-		EscuderoModelo escuderoModelo = new EscuderoModelo();
+		
 		ArrayList<Caballero> caballeros = cm.getCaballeros();
 		Random r = new Random();
+		
 		//El visor da la bienvenida al User y mediante una funcion del formulario devuelve un caballero
 		lucha.setCaballero1(Visor.bienvenidaLucha(caballeros));
 		
@@ -68,22 +71,27 @@ public class GestorLucha {
 		
 		
 		Visor.ganador(lucha);
-
-		
 		escuderoModelo.generarEscudero(lucha.getGanador());
 		LuchaModelo luchaModelo = new LuchaModelo();
 		luchaModelo.Conectar();
 		luchaModelo.insertarlucha(lucha);
 		luchaModelo.cerrar();
 		
-		/*
-		 * l.getganador.setnivel= .getgandor.getnivel+1
-		 * lo mismo con escudero
-		 * caballeroModeo.update(lucha.ganador, lucha.ganador.id)
-		 * escuderomodelo.update(lucha.ganador.escudero,lucha.gandor.id)
-		 */
-
+		//Subir de nivel al caballero y escudero ganador
+		subirNivel();
 	}
+	
+	
+	private static void subirNivel() {
+		lucha.getGanador().setNivel(lucha.getGanador().getNivel()+1);
+		if(lucha.getGanador().getEscudero() != null) {
+			lucha.getGanador().getEscudero().setNivel(lucha.getGanador().getEscudero().getNivel()+1);
+			escuderoModelo.modificarEscudero(lucha.getGanador().getEscudero(), lucha.getGanador().getId());
+		}
+		cm.modificarCaballero(lucha.getGanador(), lucha.getGanador().getId());
+	}
+	
+	
 	private static int rellenarStats(Caballero c, Caballero rival) {
 		return c.getFuerza() + c.getNivel() + c.getArma().getDaño() - rival.getEscudo().getDefensa();
 	}

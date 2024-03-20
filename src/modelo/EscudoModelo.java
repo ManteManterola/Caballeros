@@ -119,11 +119,11 @@ public class EscudoModelo extends Conector{
 
 
 	public Escudo getEscudoConId(int id) {
-		String sql ="SELECT * FROM escudo WHERE id=?";
+		String sentenciaSelect ="SELECT * FROM escudo WHERE id=?";
 		Escudo escudo = new Escudo();
 
 		try {
-			PreparedStatement pst = con.prepareStatement(sql);
+			PreparedStatement pst = con.prepareStatement(sentenciaSelect);
 			pst.setInt(1, id);
 			
 			ResultSet rs = pst.executeQuery();

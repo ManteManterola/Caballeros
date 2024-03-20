@@ -127,7 +127,7 @@ public class Formulario {
 		
 		return escudero;
 	}
-}
+
 
 
 	public static Caballo pedirDatosCaballoInsert() {
