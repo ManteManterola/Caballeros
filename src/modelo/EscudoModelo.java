@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vista.Visor;
+
 public class EscudoModelo extends Conector{
 	
 	public void insertarEscudo(Escudo es) {
@@ -105,6 +107,7 @@ public class EscudoModelo extends Conector{
 	 * @param a datos del Arma a borrar
 	 */
 	public void borrarEscudo(Escudo es) {
+		Visor.mostrarArray(getEscudos());
 		String sql = "DELETE FROM escudo WHERE id=?";
 		try {
 			PreparedStatement pst = con.prepareStatement(sql);
@@ -112,8 +115,7 @@ public class EscudoModelo extends Conector{
 			
 			pst.execute();
 		} catch (SQLException e) {
-			System.out.println("Error borrarEscudo");
-			e.printStackTrace();
+			System.out.println("El escudo esta equipado en un caballero, cambiale el escudo al caballero antes de eliminarlo, no lo dejes indefenso");
 		}
 	}
 
