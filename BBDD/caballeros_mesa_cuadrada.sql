@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-03-2024 a las 10:13:51
+-- Tiempo de generación: 20-03-2024 a las 17:20:46
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -38,11 +38,11 @@ CREATE TABLE `arma` (
 --
 
 INSERT INTO `arma` (`id`, `daño`, `tipo`) VALUES
-(1, 1, 'DAGA'),
 (2, 2, 'ESPADA CORTA'),
 (3, 3, 'ESPADA LARGA'),
 (4, 4, 'CLAYMORE'),
-(5, 5, 'ZWEIHÄNDER');
+(5, 5, 'ZWEIHÄNDER'),
+(7, 1, 'Daga');
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,10 @@ CREATE TABLE `caballero` (
 --
 
 INSERT INTO `caballero` (`id`, `nombre`, `fuerza`, `nivel`, `id_arma`, `id_escudo`) VALUES
-(1, 'DON QUIJOTE', 5, 1, 5, 2);
+(1, 'DON QUIJOTE', 50, 7, 5, 1),
+(2, 'Rodrigo Diaz de vivar', 3, 1, 2, 6),
+(3, 'Ricardo corazon de leon', 15, 6, 7, 6),
+(7, 'Sir Galahad', 10, 9, 3, 6);
 
 -- --------------------------------------------------------
 
@@ -84,7 +87,7 @@ CREATE TABLE `caballo` (
 --
 
 INSERT INTO `caballo` (`nombre`, `velocidad_maxima`, `resistencia`, `id_caballero`) VALUES
-('PERDIGON', 1, 1, 1);
+('Perdigona', 90, 25, 1);
 
 -- --------------------------------------------------------
 
@@ -103,7 +106,8 @@ CREATE TABLE `escudero` (
 --
 
 INSERT INTO `escudero` (`id_caballero`, `nombre`, `nivel`) VALUES
-(1, 'Sancho Panza', 1);
+(1, 'Escudero', 3),
+(3, 'yoquese', 2);
 
 -- --------------------------------------------------------
 
@@ -122,8 +126,9 @@ CREATE TABLE `escudo` (
 --
 
 INSERT INTO `escudo` (`id`, `defensa`, `tipo`) VALUES
-(1, 1, 'Rodela'),
-(2, 2, 'Escudo');
+(1, 3, 'Rodela'),
+(2, 2, 'Escudo'),
+(6, 1, 'Broquel');
 
 -- --------------------------------------------------------
 
@@ -134,11 +139,32 @@ INSERT INTO `escudo` (`id`, `defensa`, `tipo`) VALUES
 CREATE TABLE `lucha` (
   `id` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `lugar` text NOT NULL,
   `caballero1` int(11) NOT NULL,
   `caballero2` int(11) NOT NULL,
   `ganador` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `lucha`
+--
+
+INSERT INTO `lucha` (`id`, `fecha`, `caballero1`, `caballero2`, `ganador`) VALUES
+(1, '2024-03-18', 1, 2, 1),
+(2, '2024-03-18', 1, 2, 1),
+(3, '2024-03-19', 1, 2, 1),
+(4, '2024-03-20', 1, 2, 1),
+(5, '2024-03-20', 1, 2, 1),
+(6, '2024-03-20', 1, 2, 1),
+(7, '2024-03-20', 1, 3, 1),
+(9, '2024-03-20', 1, 3, 1),
+(11, '2024-03-20', 1, 2, 1),
+(13, '2024-03-20', 1, 3, 1),
+(14, '2024-03-20', 3, 2, 3),
+(15, '2024-03-20', 3, 2, 3),
+(16, '2024-03-20', 3, 1, 3),
+(17, '2024-03-20', 3, 2, 3),
+(18, '2024-03-20', 3, 2, 3),
+(19, '2024-03-20', 3, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -181,8 +207,8 @@ ALTER TABLE `escudo`
 --
 ALTER TABLE `lucha`
   ADD PRIMARY KEY (`id`,`fecha`,`caballero1`,`caballero2`),
-  ADD KEY `CABALLERO1_FK` (`caballero1`),
-  ADD KEY `CABALLERO2_FK` (`caballero2`);
+  ADD KEY `LUCHA_CABALLERO1` (`caballero1`),
+  ADD KEY `LUCHA_CABALLERO2` (`caballero2`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -192,25 +218,25 @@ ALTER TABLE `lucha`
 -- AUTO_INCREMENT de la tabla `arma`
 --
 ALTER TABLE `arma`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `caballero`
 --
 ALTER TABLE `caballero`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `escudo`
 --
 ALTER TABLE `escudo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `lucha`
 --
 ALTER TABLE `lucha`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Restricciones para tablas volcadas
@@ -227,20 +253,20 @@ ALTER TABLE `caballero`
 -- Filtros para la tabla `caballo`
 --
 ALTER TABLE `caballo`
-  ADD CONSTRAINT `fk_caballo` FOREIGN KEY (`id_caballero`) REFERENCES `caballero` (`id`);
+  ADD CONSTRAINT `FK_CABALLO` FOREIGN KEY (`id_caballero`) REFERENCES `caballero` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `escudero`
 --
 ALTER TABLE `escudero`
-  ADD CONSTRAINT `fk_escudero` FOREIGN KEY (`id_caballero`) REFERENCES `caballero` (`id`);
+  ADD CONSTRAINT `FK_ESCUDERO` FOREIGN KEY (`id_caballero`) REFERENCES `caballero` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `lucha`
 --
 ALTER TABLE `lucha`
-  ADD CONSTRAINT `CABALLERO1_FK` FOREIGN KEY (`caballero1`) REFERENCES `caballero` (`id`),
-  ADD CONSTRAINT `CABALLERO2_FK` FOREIGN KEY (`caballero2`) REFERENCES `caballero` (`id`);
+  ADD CONSTRAINT `LUCHA_CABALLERO1` FOREIGN KEY (`caballero1`) REFERENCES `caballero` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `LUCHA_CABALLERO2` FOREIGN KEY (`caballero2`) REFERENCES `caballero` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
