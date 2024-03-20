@@ -77,8 +77,16 @@ public class Caballero {
 
 	@Override
 	public String toString() {
-		return "Caballero [id=" + id + ", nombre=" + nombre + ", fuerza=" + fuerza + ", nivel=" + nivel + ", escudero="
-				+ escudero + ", caballo=" + caballo + ", arma=" + arma + ", escudo=" + escudo + "]";
+		String toString = "CABALLERO: " + nombre + " Fuerza: " + fuerza + " Nivel: " + nivel;
+		
+		if(escudero != null) {
+			toString = toString + "\n		ESCUDERO: " + escudero.getNombre() + " Nivel del Escudero: " + escudero.getNivel();
+		}
+		
+		if(caballo != null) {
+			toString = toString + "\n		CABALLO: " + caballo.getNombre() + " Velocidad Maxima: " + caballo.getVelocidadMaxima() + " Resistencia: " + caballo.getResistencia();
+		}
+		return toString;
 	}
 
 

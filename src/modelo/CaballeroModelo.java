@@ -16,7 +16,7 @@ public class CaballeroModelo extends Conector{
 	//Metodo para visualizar todos los caballeros, devuelve ArrayList caballeros
 	public ArrayList<Caballero> getCaballeros() {
 		
-		String sentenciaSelect = "SELECT * FROM CABALLERO LEFT JOIN ESCUDERO ON CABALLERO.ID=ESCUDERO.ID_CABALLERO;";
+		String sentenciaSelect = "SELECT * FROM caballero LEFT JOIN escudero ON CABALLERO.ID=escudero.id_caballero LEFT JOIN CABALLO ON caballero.id = caballo.id_caballero;";
 		ArrayList<Caballero> caballeros = new ArrayList<Caballero>();
 
 		try {
@@ -45,7 +45,7 @@ public class CaballeroModelo extends Conector{
 	public Caballero getCaballero(String nombre) {
 
 		
-		String sentenciaSelect = "SELECT * FROM CABALLERO LEFT JOIN ESCUDERO ON CABALLERO.ID=ESCUDERO.ID_CABALLERO WHERE caballero.nombre =?";
+		String sentenciaSelect = "SELECT * FROM caballero LEFT JOIN escudero ON CABALLERO.ID=escudero.id_caballero LEFT JOIN CABALLO ON caballero.id = caballo.id_caballero WHERE caballero.nombre =?";
 
 		Caballero caballero = new Caballero();
 
@@ -77,7 +77,7 @@ public class CaballeroModelo extends Conector{
 
 public Caballero getCaballero(int id) {
 		
-		String sentenciaSelect = "SELECT * FROM CABALLERO LEFT JOIN ESCUDERO ON CABALLERO.ID=ESCUDERO.ID_CABALLERO WHERE ID =?";
+		String sentenciaSelect = "SELECT * FROM caballero LEFT JOIN escudero ON CABALLERO.ID=escudero.id_caballero LEFT JOIN CABALLO ON caballero.id = caballo.id_caballero WHERE ID =?";
 
 		Caballero caballero = new Caballero();
 
@@ -108,6 +108,7 @@ private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLExce
 	escudoModelo.Conectar();
 	em.Conectar();
 	Escudero escudero = new Escudero();
+	Caballo caballo = new Caballo();
 	
 	caballero.setId(rs.getInt("id"));
 	caballero.setNombre(rs.getString("caballero.nombre"));
@@ -123,14 +124,20 @@ private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLExce
 		caballero.setEscudero(escudero);
 	}
 	
+	if(rs.getString("caballo.nombre") != null) {
+		caballo.setCaballero(caballero);
+		caballo.setNombre(rs.getString("caballo.nombre"));
+		caballo.setResistencia(rs.getInt("resistencia"));
+		caballo.setVelocidadMaxima(rs.getInt("velocidad_maxima"));
+		caballero.setCaballo(caballo);
+	}
+	
 	armaModelo.cerrar();
 	escudoModelo.cerrar();
 	em.cerrar();
 }
 
-
-
-	// Metodo para insertar un caballero, el caballero viene de
+	
 	// Formulario.pedirDatosCaballero
 	public void insertarCaballero(Caballero caballero) {
 		String sentenciaInsert = "INSERT INTO caballero (nombre, fuerza, nivel, id_arma, id_escudo) VALUES (?, ?, ?, ?, ?)";
