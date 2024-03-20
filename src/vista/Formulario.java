@@ -183,4 +183,16 @@ public class Formulario {
 		em.cerrar();
 		return e;
 	}
+	public static boolean confirmacionBorrarCaballero() {
+		System.out.println("¿Estas seguro de borrar caballero? Si se borra el caballero se borrara todos sus registros relacionados (S/N)");
+		String resultado = scan.nextLine();
+		if(resultado.equalsIgnoreCase("n")) {
+			return false;
+		}else if(resultado.equalsIgnoreCase("s")) {
+			return true;
+		}else {
+			System.out.println("Opcion no valida, por seguridad no se borrara el caballero");
+			return false;
+		}
+	}
 }

@@ -126,6 +126,7 @@ public class EscudoModelo extends Conector{
 		Escudo escudo = new Escudo();
 
 		try {
+			Conectar();
 			PreparedStatement pst = con.prepareStatement(sentenciaSelect);
 			pst.setInt(1, id);
 			
@@ -133,7 +134,7 @@ public class EscudoModelo extends Conector{
 			rs.next();
 			
 			rellenarEscudo(escudo, rs);
-			
+			cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error getEscudoConId");
 			e.printStackTrace();

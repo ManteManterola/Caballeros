@@ -44,8 +44,10 @@ public class GestorCaballero {
 				caballeroModelo.Conectar();
 				
 				int id = Formulario.pedirIdCaballero();
-				caballeroModelo.borrarCaballero(id);
 				
+				if(Formulario.confirmacionBorrarCaballero()) {
+				caballeroModelo.borrarCaballero(id);
+				}
 				caballeroModelo.cerrar();
 				break;
 			}

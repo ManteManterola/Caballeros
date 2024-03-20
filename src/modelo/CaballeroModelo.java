@@ -166,6 +166,7 @@ private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLExce
 	// Formulario.pedirIdCaballero
 	public void borrarCaballero(int id) {
 		String sentenciaDelete = "DELETE FROM caballero WHERE id = ? ";
+		//SECNTECIA DELETE LUCHA = "DELEFTE FROM LUCHA WHERE ID=?
 
 		try {
 			PreparedStatement pst = con.prepareStatement(sentenciaDelete);

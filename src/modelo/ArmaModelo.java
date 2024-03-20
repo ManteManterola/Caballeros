@@ -133,6 +133,7 @@ public class ArmaModelo extends Conector  {
 		Arma arma = new Arma();
 
 		try {
+			Conectar();
 			PreparedStatement pst = getCon().prepareStatement(sql);
 			pst.setInt(1, id);
 			
@@ -140,7 +141,7 @@ public class ArmaModelo extends Conector  {
 			rs.next();
 			
 			rellenarArma(arma, rs);
-			
+			cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error VisualizarArma");
 			e.printStackTrace();
