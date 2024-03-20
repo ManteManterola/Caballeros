@@ -97,8 +97,7 @@ public class EscuderoModelo extends Conector {
 	public void generarEscudero(Caballero ganador) {
 		
 		Random random = new Random();
-		//int numeroAleatorio = random.nextInt(5) + 1;
-		int numeroAleatorio = 1;
+		int numeroAleatorio = random.nextInt(5) + 1;
 		if(ganador.getEscudero() == null && numeroAleatorio == 1) {
 			System.out.println("Un nuevo escudero quiere unirse a " + ganador.getNombre() + "!!!");
 			Escudero escudero = new Escudero();
@@ -123,6 +122,5 @@ public class EscuderoModelo extends Conector {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 }
