@@ -77,7 +77,7 @@ public class Caballero {
 
 	@Override
 	public String toString() {
-		String toString = "CABALLERO: " + nombre + " Fuerza: " + fuerza + " Nivel: " + nivel;
+		String toString = id+"-CABALLERO: " + nombre + " Fuerza: " + fuerza + " Nivel: " + nivel;
 		
 		if(escudero != null) {
 			toString = toString + "\n		ESCUDERO: " + escudero.getNombre() + " Nivel del Escudero: " + escudero.getNivel();

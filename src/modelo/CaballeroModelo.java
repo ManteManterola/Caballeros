@@ -165,7 +165,7 @@ private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLExce
 	// Metodo que elimina un caballero de la base de datos la id viene de
 	// Formulario.pedirIdCaballero
 	public void borrarCaballero(int id) {
-		String sentenciaDelete = "DELETE FROM caballero WHERE id = ?";
+		String sentenciaDelete = "DELETE FROM caballero WHERE id = ? ";
 
 		try {
 			PreparedStatement pst = con.prepareStatement(sentenciaDelete);

@@ -94,6 +94,7 @@ public class ArmaModelo extends Conector  {
 		String sql = "UPDATE arma SET daño=?, tipo=? WHERE id=?";
 		
 		try {
+			Conectar();
 			PreparedStatement pst = con.prepareStatement(sql);
 			
 			pst.setInt(1, a.getDaño());
@@ -101,7 +102,7 @@ public class ArmaModelo extends Conector  {
 			pst.setInt(3, id);
 			
 			pst.execute();
-			
+			cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error modificarArma");
 			e.printStackTrace();
@@ -115,10 +116,12 @@ public class ArmaModelo extends Conector  {
 	public void borrarArma(Arma a) {
 		String sql = "DELETE FROM arma WHERE id=?";
 		try {
+			Conectar();
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setInt(1, a.getId());
 			
 			pst.execute();
+			cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error borrarArma");
 			e.printStackTrace();
