@@ -3,6 +3,8 @@ package modelo;
 import java.sql.*;
 import java.util.*;
 
+import vista.Visor;
+
 /**
  * Conexion a la base de datos para la clase Arma
  */
@@ -114,6 +116,7 @@ public class ArmaModelo extends Conector  {
 	 * @param a datos del Arma a borrar
 	 */
 	public void borrarArma(Arma a) {
+		Visor.mostrarArray(getArmas());
 		String sql = "DELETE FROM arma WHERE id=?";
 		try {
 			Conectar();
@@ -123,8 +126,8 @@ public class ArmaModelo extends Conector  {
 			pst.execute();
 			cerrar();
 		} catch (SQLException e) {
-			System.out.println("Error borrarArma");
-			e.printStackTrace();
+			System.out.println("El arma esta equipada en un caballero, cambiale el arma al caballero antes de eliminarla, no lo dejes indefenso");
+
 		}
 	}
 	
