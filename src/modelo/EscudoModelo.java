@@ -89,6 +89,7 @@ public class EscudoModelo extends Conector{
 		String sql = "UPDATE escudo SET defensa=?, tipo=? WHERE id=?";
 		
 		try {
+			Conectar();
 			PreparedStatement pst = con.prepareStatement(sql);
 			
 			pst.setInt(1, es.getDefensa());
@@ -96,7 +97,7 @@ public class EscudoModelo extends Conector{
 			pst.setInt(3, id);
 			
 			pst.execute();
-			
+			cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error modificarEscudo");
 			e.printStackTrace();
@@ -110,10 +111,12 @@ public class EscudoModelo extends Conector{
 	public void borrarEscudo(Escudo es) {
 		String sql = "DELETE FROM escudo WHERE id=?";
 		try {
+			Conectar();
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setInt(1, es.getId());
 			
 			pst.execute();
+			cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error borrarEscudo");
 			e.printStackTrace();

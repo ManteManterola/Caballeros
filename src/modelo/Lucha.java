@@ -6,7 +6,6 @@ public class Lucha {
 
 	private int id;
 	private Date fecha;
-	private String lugar;
 	private Caballero caballero1;
 	private Caballero caballero2;
 	private Caballero ganador;
@@ -25,14 +24,6 @@ public class Lucha {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
-	}
-
-	public String getLugar() {
-		return lugar;
-	}
-
-	public void setLugar(String lugar) {
-		this.lugar = lugar;
 	}
 
 	public Caballero getCaballero1() {
@@ -61,7 +52,7 @@ public class Lucha {
 
 	@Override
 	public String toString() {
-		return "Lucha [id=" + id + ", fecha=" + fecha + ", lugar=" + lugar + ", caballero1=" + caballero1
+		return "Lucha [id=" + id + ", fecha=" + fecha  + ", caballero1=" + caballero1
 				+ ", caballero2=" + caballero2 + ", ganador=" + ganador + "]";
 	}
 

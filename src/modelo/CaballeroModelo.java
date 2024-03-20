@@ -210,7 +210,7 @@ private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLExce
 
 	public ArrayList<Caballero> getCaballerosDisponibles() {
 		ArrayList<Caballero> caballeros = new ArrayList<>();
-		String sql = "SELECT * FROM caballo RIGHT JOIN caballero ON caballo.id_caballero = caballero.id WHERE id_caballero is NULL";
+		String sql = "SELECT * FROM caballero LEFT JOIN escudero ON CABALLERO.ID=escudero.id_caballero LEFT JOIN CABALLO ON caballero.id = caballo.id_caballero WHERE caballo.id_caballero is NULL";
 		armaModelo.Conectar();
 		escudoModelo.Conectar();
 		try {

@@ -24,7 +24,6 @@ public class LuchaModelo extends Conector{
 				
 				lucha.setId(resultado.getInt("id"));
 				lucha.setFecha(resultado.getDate("fecha"));
-				lucha.setLugar(resultado.getString("lugar"));
 				lucha.setCaballero1(caballeroModelo.getCaballero(resultado.getInt("caballero1")));
 				lucha.setCaballero2(caballeroModelo.getCaballero(resultado.getInt("caballero2")));
 				lucha.setGanador(caballeroModelo.getCaballero(resultado.getInt("ganador")));

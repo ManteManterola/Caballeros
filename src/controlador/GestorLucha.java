@@ -67,27 +67,29 @@ public class GestorLucha {
 		if(statsCaballeroUsuario>statsCaballeroIA) {
 			lucha.setGanador(lucha.getCaballero1());
 			//funcion(ucha)
-		}else if(statsCaballeroUsuario>statsCaballeroIA){
+		}else if(statsCaballeroUsuario<statsCaballeroIA){
 			lucha.setGanador(lucha.getCaballero2());
 		}
-		
-		
 		Visor.ganador(lucha);
-		escuderoModelo.generarEscudero(lucha.getGanador());
-		LuchaModelo luchaModelo = new LuchaModelo();
-		luchaModelo.Conectar();
-		luchaModelo.insertarlucha(lucha);
-		luchaModelo.cerrar();
-		
-
-		if(lucha.getGanador().getEscudero() != null && lucha.getGanador().getEscudero().getNivel()>=10) {
+		if(lucha.getGanador() != null) {
 			
-			cm.evolucionarACaballero(lucha.getGanador().getEscudero(),Formulario.pedirDatosBuscaArma() , Formulario.pedirDatosBuscaEscudo());
+			escuderoModelo.generarEscudero(lucha.getGanador());
+			LuchaModelo luchaModelo = new LuchaModelo();
+			luchaModelo.Conectar();
+			luchaModelo.insertarlucha(lucha);
+			luchaModelo.cerrar();
+			
+
+			if(lucha.getGanador().getEscudero() != null && lucha.getGanador().getEscudero().getNivel()>=10) {
+				
+				cm.evolucionarACaballero(lucha.getGanador().getEscudero(),Formulario.pedirDatosBuscaArma() , Formulario.pedirDatosBuscaEscudo());
+			}
+
+			//Subir de nivel al caballero y escudero ganador
+			subirNivel();
+
 		}
-
-		//Subir de nivel al caballero y escudero ganador
-		subirNivel();
-
+		
 	}
 	
 	
