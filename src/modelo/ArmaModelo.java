@@ -37,6 +37,7 @@ public class ArmaModelo extends Conector  {
 		ArrayList<Arma> armas = new ArrayList<>();
 
 		try {
+			Conectar();
 			ResultSet rs = con.createStatement().executeQuery(sql);
 			while (rs.next()) {
 				Arma a = new Arma();
@@ -45,6 +46,7 @@ public class ArmaModelo extends Conector  {
 				
 				armas.add(a);
 			}
+			cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error VisualizarArma");
 			e.printStackTrace();
@@ -61,6 +63,7 @@ public class ArmaModelo extends Conector  {
 		Arma a = new Arma();
 
 		try {
+			Conectar();
 			PreparedStatement pst = con.prepareStatement(sql);
 			pst.setString(1, tipo);
 			
@@ -68,7 +71,7 @@ public class ArmaModelo extends Conector  {
 			rs.next();
 			
 			rellenarArma(a, rs);
-			
+			cerrar();
 		} catch (SQLException e) {
 			System.out.println("Error VisualizarArma");
 			e.printStackTrace();

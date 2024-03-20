@@ -4,6 +4,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
+
+
+public class CaballeroModelo extends Conector{
+	
+	private ArmaModelo armaModelo = new ArmaModelo();
+	private EscudoModelo escudoModelo = new EscudoModelo();
+	private EscuderoModelo em = new EscuderoModelo();
+	
+	//Metodo para visualizar todos los caballeros, devuelve ArrayList caballeros
+	public ArrayList<Caballero> getCaballeros() {
+		
+		String sentenciaSelect = "SELECT * FROM CABALLERO LEFT JOIN ESCUDERO ON CABALLERO.ID=ESCUDERO.ID_CABALLERO;";
 
 public class CaballeroModelo extends Conector {
 
@@ -15,6 +28,7 @@ public class CaballeroModelo extends Conector {
 	public ArrayList<Caballero> getCaballeros() {
 
 		String sentenciaSelect = "SELECT * FROM caballero";
+
 		ArrayList<Caballero> caballeros = new ArrayList<Caballero>();
 
 		try {
@@ -42,13 +56,17 @@ public class CaballeroModelo extends Conector {
 
 	public Caballero getCaballero(String nombre) {
 
-		String sentenciaSelect = "SELECT * FROM caballero WHERE nombre =?";
+		
+		String sentenciaSelect = "SELECT * FROM CABALLERO LEFT JOIN ESCUDERO ON CABALLERO.ID=ESCUDERO.ID_CABALLERO WHERE caballero.nombre =?";
+
 		Caballero caballero = new Caballero();
 
 		try {
+
 			armaModelo.Conectar();
 			escudoModelo.Conectar();
 			
+
 			PreparedStatement pst = con.prepareStatement(sentenciaSelect);
 			pst.setString(1, nombre);
 			ResultSet rs = pst.executeQuery();
@@ -57,8 +75,10 @@ public class CaballeroModelo extends Conector {
 
 			rellenarCaballero(caballero, rs);
 
+
 			armaModelo.cerrar();
 			escudoModelo.cerrar();
+
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -67,42 +87,61 @@ public class CaballeroModelo extends Conector {
 		return caballero;
 	}
 
-	public Caballero getCaballero(int id) {
+public Caballero getCaballero(int id) {
+		
+		String sentenciaSelect = "SELECT * FROM CABALLERO LEFT JOIN ESCUDERO ON CABALLERO.ID=ESCUDERO.ID_CABALLERO WHERE ID =?";
 
-		String sentenciaSelect = "SELECT * FROM caballero WHERE ID =?";
 		Caballero caballero = new Caballero();
 
 		try {
+
 			armaModelo.Conectar();
 			escudoModelo.Conectar();
-		
+
 			PreparedStatement pst = con.prepareStatement(sentenciaSelect);
 			pst.setInt(1, id);
 			ResultSet rs = pst.executeQuery();
 
 			rs.next();
-
+				
 			rellenarCaballero(caballero, rs);
 
 			armaModelo.cerrar();
 			escudoModelo.cerrar();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return caballero;
+}
+private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLException {
+	armaModelo.Conectar();
+	escudoModelo.Conectar();
+	em.Conectar();
+	Escudero escudero = new Escudero();
+	
+	caballero.setId(rs.getInt("id"));
+	caballero.setNombre(rs.getString("caballero.nombre"));
+	caballero.setFuerza(rs.getInt("fuerza"));
+	caballero.setNivel(rs.getInt("caballero.nivel"));
+	caballero.setArma(armaModelo.getArmaConId(rs.getInt("id_arma")));
+	caballero.setEscudo(escudoModelo.getEscudoConId(rs.getInt("id_escudo")));
+	
+	if(rs.getString("escudero.nombre") != null) {
+		escudero.setCaballero(caballero);
+		escudero.setNivel(rs.getInt("escudero.nivel"));
+		escudero.setNombre(rs.getString("escudero.nombre"));
+		caballero.setEscudero(escudero);
+	}
+	
+	armaModelo.cerrar();
+	escudoModelo.cerrar();
+	em.cerrar();
+}
+
 	}
 
-	private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLException {
-		caballero.setId(rs.getInt("id"));
-		caballero.setNombre(rs.getString("caballero.nombre"));
-		caballero.setFuerza(rs.getInt("fuerza"));
-		caballero.setNivel(rs.getInt("nivel"));
-		caballero.setArma(armaModelo.getArmaConId(rs.getInt("id_arma")));
-		caballero.setEscudo(escudoModelo.getEscudoConId(rs.getInt("id_escudo")));
-		//caballero.setEscudero(escuderoModelo.getEscuderoConId(rs.getInt("id")));
-	}
 
 	// Metodo para insertar un caballero, el caballero viene de
 	// Formulario.pedirDatosCaballero
@@ -195,5 +234,30 @@ public class CaballeroModelo extends Conector {
 			e.printStackTrace();
 		}
 		return caballeros;
+	}
+	public void evolucionarACaballero(Escudero escudero,Arma a, Escudo es) {
+		String insert = "INSERT INTO caballero (nombre,fuerza,nivel,id_arma,id_escudo) VALUES (?,?,?,?,?)";
+		String delete = "DELETE FROM escudero WHERE id_caballero=?";
+		Random r = new Random();
+		try {
+			PreparedStatement insertpst = con.prepareStatement(insert);
+			insertpst.setString(1, escudero.getNombre());
+			insertpst.setInt(2, r.nextInt(10));
+			insertpst.setInt(3, 1);
+			insertpst.setInt(4, a.getId());
+			insertpst.setInt(5, es.getId());
+			
+			insertpst.execute();
+			
+			PreparedStatement deletepst = con.prepareStatement(delete);
+			deletepst.setInt(1, escudero.getCaballero().getId());
+			deletepst.execute();
+
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

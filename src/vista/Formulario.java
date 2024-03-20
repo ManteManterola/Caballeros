@@ -164,5 +164,23 @@ public class Formulario {
 		pedirDatosCaballo(c);
 		return c;
 	}
+	public static Arma pedirDatosBuscaArma() {
+		ArmaModelo am = new ArmaModelo();
+		
+		Visor.mostrarArray(am.getArmas());
+		System.out.println("Seleccione un arma para equipar");
+		Arma a = am.getArma(scan.nextLine());
+		am.cerrar();
+		return a;
+	}
 
+	public static Escudo pedirDatosBuscaEscudo() {
+		EscudoModelo em = new EscudoModelo();
+		
+		Visor.mostrarArray(em.getEscudos());
+		System.out.println("Seleccione un escudo para equipar");
+		Escudo e = em.getEscudo(scan.nextLine());
+		em.cerrar();
+		return e;
+	}
 }
