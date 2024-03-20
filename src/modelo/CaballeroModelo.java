@@ -17,18 +17,6 @@ public class CaballeroModelo extends Conector{
 	public ArrayList<Caballero> getCaballeros() {
 		
 		String sentenciaSelect = "SELECT * FROM CABALLERO LEFT JOIN ESCUDERO ON CABALLERO.ID=ESCUDERO.ID_CABALLERO;";
-
-public class CaballeroModelo extends Conector {
-
-	ArmaModelo armaModelo = new ArmaModelo();
-	EscudoModelo escudoModelo = new EscudoModelo();
-	EscuderoModelo escuderoModelo = new EscuderoModelo();
-
-	// Metodo para visualizar todos los caballeros, devuelve ArrayList caballeros
-	public ArrayList<Caballero> getCaballeros() {
-
-		String sentenciaSelect = "SELECT * FROM caballero";
-
 		ArrayList<Caballero> caballeros = new ArrayList<Caballero>();
 
 		try {
@@ -140,7 +128,6 @@ private void rellenarCaballero(Caballero caballero, ResultSet rs) throws SQLExce
 	em.cerrar();
 }
 
-	}
 
 
 	// Metodo para insertar un caballero, el caballero viene de
